@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA1FC7DB1DF58CFE003FF5C1 /* SensorTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1FC7DA1DF58CFE003FF5C1 /* SensorTag.swift */; };
 		AA2EEB801DF570B4005651E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EEB7F1DF570B4005651E2 /* AppDelegate.swift */; };
 		AA2EEB821DF570B4005651E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EEB811DF570B4005651E2 /* ViewController.swift */; };
 		AA2EEB851DF570B4005651E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA2EEB831DF570B4005651E2 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA1FC7DA1DF58CFE003FF5C1 /* SensorTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTag.swift; sourceTree = "<group>"; };
 		AA2EEB7C1DF570B4005651E2 /* Laboration3b.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Laboration3b.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2EEB7F1DF570B4005651E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA2EEB811DF570B4005651E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				AA2EEB8B1DF570B4005651E2 /* LaunchScreen.storyboard */,
 				AA2EEB8E1DF570B4005651E2 /* Info.plist */,
 				AA2EEB861DF570B4005651E2 /* Laboration3b.xcdatamodeld */,
+				AA1FC7DA1DF58CFE003FF5C1 /* SensorTag.swift */,
 			);
 			path = Laboration3b;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA1FC7DB1DF58CFE003FF5C1 /* SensorTag.swift in Sources */,
 				AA2EEB821DF570B4005651E2 /* ViewController.swift in Sources */,
 				AA2EEB801DF570B4005651E2 /* AppDelegate.swift in Sources */,
 				AA2EEB881DF570B4005651E2 /* Laboration3b.xcdatamodeld in Sources */,
@@ -518,6 +522,7 @@
 				AA2EEBA91DF570B4005651E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA2EEBAA1DF570B4005651E2 /* Build configuration list for PBXNativeTarget "Laboration3bTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +531,7 @@
 				AA2EEBAC1DF570B4005651E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA2EEBAD1DF570B4005651E2 /* Build configuration list for PBXNativeTarget "Laboration3bUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +540,7 @@
 				AA2EEBAF1DF570B4005651E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
