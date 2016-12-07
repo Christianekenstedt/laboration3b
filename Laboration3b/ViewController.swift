@@ -9,6 +9,7 @@
 import UIKit
 import CoreBluetooth
 
+
 class ViewController: UIViewController, CBCentralManagerDelegate,
 CBPeripheralDelegate {
 
@@ -40,12 +41,14 @@ CBPeripheralDelegate {
         manager = CBCentralManager(delegate: self, queue: nil)
         enableBytes = NSData(bytes: &enable, length: MemoryLayout<UInt8>.size)
         disableBytes = NSData(bytes: &disable, length: MemoryLayout<UInt8>.size)
+        deleteFile()
+        saveToFile(data: String(describing: Date()))
     }
 
     
     @IBAction func collectButtonPressed(_ sender: Any) {
+        
         if peripheral != nil && !collectData{
-            
             collectButton.setTitle("Stop", for: .normal)
             collectData = true
             startIRSensor()
@@ -126,7 +129,11 @@ CBPeripheralDelegate {
             var array = [Int16](repeating: 0, count: byteLegth)
             dbytes.getBytes(&array, length: (byteLegth*MemoryLayout<Int16>.size))
             let temp = Double(array[1])/128
-            self.tempLabel.text = String(format: "%.2f℃", temp)
+            if array[0] != 0{
+                self.tempLabel.text = String(format: "%.2f℃", temp)
+                saveToFile(data: String(format: "%.2f\n", temp))
+            }
+            
         }
         if characteristic.uuid == IRSensorPERIOD{
             let dbytes = characteristic.value! as NSData
@@ -186,6 +193,69 @@ CBPeripheralDelegate {
     @IBAction func sliderDidChange(_ sender: UISlider) {
         currentRefreshrate.text = String(slider.value*10)
         changeRefreshRate(rate: Int(slider.value))
+    }
+    
+    func saveToFile(data: String){
+        let fileName = "temperatureData"
+        let documentURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let fileURL = documentURL.appendingPathComponent(fileName).appendingPathExtension("txt")
+        
+        let strToSave = ""
+        do{
+            //try strToSave.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+            
+            let f = try FileHandle(forWritingTo: fileURL)
+            f.seekToEndOfFile()
+            
+            f.write(data.data(using: String.Encoding.utf8)!)
+            f.closeFile()
+            
+        }catch let err as Error{
+            print(err)
+        }
+    }
+    
+    func deleteFile(){
+        let fileName = "temperatureData"
+        let documentURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let fileURL = documentURL.appendingPathComponent(fileName).appendingPathExtension("txt")
+        
+        let strToSave = ""
+        do{
+            try strToSave.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+        }catch let err as Error{
+            print(err)
+        }
+    }
+    
+    func readFromFile() -> String{
+        let fileName = "temperatureData"
+        let documentURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let fileURL = documentURL.appendingPathComponent(fileName).appendingPathExtension("txt")
+        print("FilePath: \(fileURL.path)")
+        
+        
+        var str = ""
+        do {
+            try str = String(contentsOf: fileURL, encoding: String.Encoding.utf8)
+        } catch let err as Error {
+            print("failed to read from file.")
+            print(err)
+        }
+        return str
+        
+    }
+    
+    func uploadData(){
+        let strToSend = readFromFile()
+        let client = TCPClient(address: "130.229.177.18", port: 1337)
+        client.connect(timeout: 30)
+        let res = client.send(string: strToSend)
+        client.close()
+    }
+    
+    @IBAction func uploadBtnPressed(_ sender: Any) {
+        uploadData()
     }
     
     
